@@ -35,4 +35,12 @@ public class DBConnection {
         }
     }
     
+     public Connection getConnection() {
+        if(conn!= null) {
+            initiateDBConnection();
+        }
+        return this.conn;
+    }
+    
+    
 }
