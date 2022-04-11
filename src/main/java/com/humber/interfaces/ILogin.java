@@ -5,6 +5,7 @@
  */
 package com.humber.interfaces;
 
+import com.humber.models.User;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
@@ -15,10 +16,10 @@ import javax.jws.WebService;
 @WebService
 public interface ILogin {
     @WebMethod(operationName = "authenticate")
-    public String authenticate(String email, String password);
+    public User authenticate(String email, String password);
     
     @WebMethod(operationName = "registerUser")
-    public String registerUser(String name, String email, String password);
+    public User registerUser(String name, String email, String password);
 
     @WebMethod(operationName = "logout")
     public String logout();

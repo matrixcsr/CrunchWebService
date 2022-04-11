@@ -16,16 +16,26 @@ public class User {
     String email;
     boolean isAdmin;
     byte[] hash;
-
+    int membership_id;
+    
     public User() {
     }
 
-    public User(int id, String name, String email, byte[] hash, boolean isAdmin) {
+    public User(int id, String name, String email, boolean isAdmin, byte[] hash, int membership_id) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.isAdmin = isAdmin;
         this.hash = hash;
+        this.membership_id = membership_id;
+    }
+
+    public int getMembership_id() {
+        return membership_id;
+    }
+
+    public void setMembership_id(int membership_id) {
+        this.membership_id = membership_id;
     }
 
     public int getId() {

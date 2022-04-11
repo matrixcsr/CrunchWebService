@@ -20,50 +20,51 @@ import javax.jws.WebService;
 public class Login {
 
     public String logout() {
-        return "Logged Out"; /*TO DO*/
+        return "Logged Out";
+        /*TO DO*/
     }
 
-    public String authenticate(String email, String password) {
+    public User authenticate(String email, String password) {
         String status = "";
         try {
             UsersDao usersDao = UsersDao.getUsersDaoInstance();
             Boolean isUserRegistered = usersDao.isUserExists(email);
             if (!isUserRegistered) {
-                return "failed";
+                return new User();
             }
             // Convert Password to Hash and Compare Hash
             String generatedHash = Utils.generateHash(password);
             User user = usersDao.getUserLoginDetails(email);
             if (Arrays.equals(generatedHash.getBytes(StandardCharsets.UTF_8), user.getHash())) {
-                return "success"; //Password Matched
+                return user; //Password Matched
             }
-            return "failed";
+            return new User();
         } catch (Exception e) {
             System.out.println("Authenticate Method Error");
         }
-        return "failed";
+        return new User();
     }
-    
-    public String registerUser(String name, String email, String password ) {
+
+    public User registerUser(String name, String email, String password) {
         String status = "";
         try {
             UsersDao usersDao = UsersDao.getUsersDaoInstance();
             Boolean isUserRegistered = usersDao.isUserExists(email);
             if (isUserRegistered) {
-                return "failed";
+                return new User();
             }
             // Convert Password to Hash and Compare Hash
             String generatedHash = Utils.generateHash(password);
             byte[] hashBytes = generatedHash.getBytes(StandardCharsets.UTF_8);
-            User user = new User(-1,name,email,hashBytes,false);
+            User user = new User(-1, name, email, false,hashBytes, -1);
             int creationStatus = usersDao.createUserAccount(user);
             if (creationStatus == 1) {
-                return "success"; //User Created
+                return user; //User Created
             }
-            return "failed";
+            return new User();
         } catch (Exception e) {
             System.out.println("Register User Method Error");
         }
-        return "failed";
+        return new User();
     }
 }

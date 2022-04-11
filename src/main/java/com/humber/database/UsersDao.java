@@ -73,14 +73,16 @@ public class UsersDao {
     public User getUserLoginDetails(String email) {
         User user = new User();
         try {
-            String query = "SELECT id,email,hash FROM users WHERE email=?";
+            String query = "SELECT * FROM users WHERE email=?";
             PreparedStatement pstmt = (PreparedStatement) connection.prepareStatement(query);
             pstmt.setString(1, email);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                user.setId(rs.getInt(1));
-                user.setEmail(rs.getString(2));
-                user.setHash(rs.getBytes(3));
+                user.setId(rs.getInt("id"));
+                user.setEmail(rs.getString("email"));
+                user.setName(rs.getString("name"));
+                user.setHash(rs.getBytes("hash"));
+                user.setMembership_id(rs.getInt("membership_id"));
             }
             pstmt.close();
         } catch (Exception e) {
