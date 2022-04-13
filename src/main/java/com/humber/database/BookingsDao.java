@@ -7,6 +7,7 @@ package com.humber.database;
 
 import com.humber.models.BookingClass;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,11 +38,11 @@ public class BookingsDao {
     }
 
     public int createBooking(BookingClass booking) {
-        String sqlQuery = "INSERT INTO registration(user_id, scheduled_day, location, class_name) VALUES(?,?,?,?)";
+        String sqlQuery = "INSERT INTO registration(user_id, scheduled_day, location, class_id) VALUES(?,?,?,?)";
         try {
             PreparedStatement pstmt = (PreparedStatement) connection.prepareStatement(sqlQuery);
             pstmt.setInt(1, booking.getUserID());
-            pstmt.setDate(2, new java.sql.Date(booking.getScheduledDate().getTime()));
+            pstmt.setDate(2, (Date) booking.getScheduledDate());
             pstmt.setString(3, booking.getLocation());
             pstmt.setString(4, booking.getClass_name());
             pstmt.executeUpdate();

@@ -83,6 +83,7 @@ public class UsersDao {
                 user.setName(rs.getString("name"));
                 user.setHash(rs.getBytes("hash"));
                 user.setMembership_id(rs.getInt("membership_id"));
+                user.setIsAdmin(rs.getBoolean("is_admin"));
             }
             pstmt.close();
         } catch (Exception e) {
